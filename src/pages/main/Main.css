@@ -1,0 +1,22 @@
+
+.container {
+    width: 80%;
+    margin: auto;
+    padding: 20px;
+}
+
+.main-image {
+    border: 2px solid #ccc;
+    height: 300px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 24px;
+    font-weight: bold;
+    color: #333;
+}
+
+.menu a:hover {
+    background-color: #007bff;
+    color: #fff;
+}
