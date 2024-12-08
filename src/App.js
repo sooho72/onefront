@@ -12,6 +12,9 @@ import Profile from './pages/profile/Profile.jsx';
 import AuthGuard from './guards/AuthGuard';
 import  Role  from './models/Role';
 import Main from './pages/main/Main';
+import Challenge from './pages/challenge/Challenge.jsx';
+import Journal from './pages/journal/Journal.jsx';
+import ChallengeRegister from './pages/register/ChallengeRegister.jsx';
 function App() {
   return (
     <div className="App">
@@ -21,6 +24,9 @@ function App() {
         <Routes>
           <Route path='/' element={<Main />}></Route>
           <Route path='/main' element={<Main />}></Route>
+          <Route path='challenge' element={<Challenge/>}></Route>
+          <Route path='journal' element={<Journal/>}></Route>
+          <Route path='challengeregister' element={<ChallengeRegister/>}></Route>
           <Route path='/login' element={<Login />}></Route>
           <Route path='/register' element={<Register />}></Route>
           <Route path='/admin' element={

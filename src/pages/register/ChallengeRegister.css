@@ -1,0 +1,60 @@
+/* 전체 레이아웃 */
+.challenge-page-side {
+  display: flex;
+  margin-left: 300px; /* 왼쪽 Navsidebar와 간격 유지 */
+  padding-top: 100px; /* 상단 네비게이션 바와 겹치지 않도록 */
+}
+
+/* 챌린지 작성 폼 스타일 */
+.challenge-form-side {
+  flex: 1;
+  padding: 20px;
+}
+
+.input-group-side {
+  margin-bottom: 20px;
+}
+
+.input-group-side label {
+  display: block;
+  margin-bottom: 5px;
+  font-weight: bold;
+}
+
+.input-group-side input,
+.input-group-side textarea,
+.input-group-side select {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+}
+
+.input-group-side textarea {
+  height: 100px;
+  resize: none;
+}
+
+.button-group-side {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+}
+
+.cancel-button-side {
+  background-color: #f8d7da;
+  border: none;
+  color: #721c24;
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.submit-button-side {
+  background-color: #d4edda;
+  border: none;
+  color: #155724;
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+}

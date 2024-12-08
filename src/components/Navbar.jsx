@@ -15,10 +15,10 @@ const Navbar = () => {
     }
     return(
         <nav className='navbar navbar-expand navbar-dark bg-dark'>
-            <div className='container'>
+            
                 <a href='https://react.dev' className='navbar-brand ms-1'>
                     <img src={logo} className='App-logo' alt='logo' />
-                    React
+                    로고홈
                 </a>
                 <div className='navbar-nav me-auto'>
                     {currentUser?.role===Role.ADMIN &&
@@ -27,7 +27,13 @@ const Navbar = () => {
                         </li>
                     }
                     <li className='nav-item'>
-                        <NavLink to="/main" href='##' className='nav-link'>홈페이지</NavLink>
+                        <NavLink to="/challengeregister" href='##' className='nav-link'>챌린지시작하기</NavLink>
+                    </li>
+                    <li className='nav-item'>
+                        <NavLink to="/journal" href='##' className='nav-link'>챌린지기록하기</NavLink>
+                    </li>
+                    <li className='nav-item'>
+                        <NavLink to="/challenge" href='##' className='nav-link'>챌린지응원하기</NavLink>
                     </li>
                 </div>
                 {!currentUser && (
@@ -52,7 +58,7 @@ const Navbar = () => {
                     
                     </div>
                 )}
-            </div>
+           
         </nav>
     );
 };
