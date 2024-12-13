@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom"; // URL 파라미터 및 페이지 이동
-import challengeService from '../../services/challengeService'; // 서비스 모듈
-import '../../pages/challenge/ChallengeEdit.css'; // 스타일 파일 추가
+import challengeService from "../../services/challengeService"; // 서비스 모듈
+import "../../pages/challenge/ChallengeEdit.css"; // 스타일 파일 추가
 
 const ChallengeEdit = () => {
-  const { id } = useParams(); // URL에서 챌린지 ID 가져오기
+  const { id: challengeId } = useParams(); // URL에서 챌린지 ID 가져오기
   const navigate = useNavigate(); // 페이지 이동 함수
 
   const [challenge, setChallenge] = useState({
@@ -13,20 +13,27 @@ const ChallengeEdit = () => {
     endDate: "",
     progress: 0,
   });
+  const [loading, setLoading] = useState(true); // 로딩 상태 추가
   const [errorMessage, setErrorMessage] = useState("");
 
   useEffect(() => {
     const fetchChallenge = async () => {
       try {
-        const data = await challengeService.getChallengeById(id);
-        setChallenge(data);
+        if (!challengeId) {
+          throw new Error("유효하지 않은 챌린지 ID입니다.");
+        }
+        const data = await challengeService.getChallengeById(challengeId);
+        setChallenge(data); // 데이터 설정
       } catch (error) {
         setErrorMessage("챌린지 정보를 불러오는 중 문제가 발생했습니다.");
+        console.error(error);
+      } finally {
+        setLoading(false); // 로딩 상태 변경
       }
     };
 
     fetchChallenge();
-  }, [id]);
+  }, [challengeId]);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -39,12 +46,18 @@ const ChallengeEdit = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      await challengeService.updateChallenge(id, challenge);
-      navigate(`/challengeread/${id}`);
+      await challengeService.updateChallenge(challengeId, challenge);
+      alert("챌린지가 성공적으로 수정되었습니다.");
+      navigate(`/challengeread/${challengeId}`);
     } catch (error) {
       setErrorMessage("챌린지를 수정하는 중 문제가 발생했습니다.");
+      console.error(error);
     }
   };
+
+  if (loading) {
+    return <p className="loading-message">로딩 중...</p>;
+  }
 
   return (
     <div className="challenge-edit-container">
@@ -95,14 +108,18 @@ const ChallengeEdit = () => {
             max="100"
           />
         </div>
-        <button type="submit" className="submit-button">수정 완료</button>
-        <button
-          type="button"
-          className="cancel-button"
-          onClick={() => navigate(`/challengeread/${id}`)}
-        >
-          취소
-        </button>
+        <div className="form-actions">
+          <button type="submit" className="submit-button">
+            수정 완료
+          </button>
+          <button
+            type="button"
+            className="cancel-button"
+            onClick={() => navigate(`/challengeread/${challengeId}`)}
+          >
+            취소
+          </button>
+        </div>
       </form>
     </div>
   );

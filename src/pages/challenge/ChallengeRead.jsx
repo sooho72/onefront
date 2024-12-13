@@ -39,33 +39,6 @@ const ChallengeRead = () => {
       });
   }, [challengeId]);
 
-  const handleEdit = () => {
-    setShowEditModal(true);
-  };
-
-  const confirmEdit = () => {
-    setShowEditModal(false);
-    navigate(`/challenge/edit/${challengeId}`); // 수정 페이지로 이동
-  };
-
-  const handleDelete = () => {
-    setShowDeleteModal(true);
-  };
-
-  const confirmDelete = () => {
-    setShowDeleteModal(false);
-    challengeService
-      .deleteChallenge(challengeId)
-      .then(() => {
-        alert("챌린지가 삭제되었습니다.");
-        navigate("/challenge"); // 목록 페이지로 이동
-      })
-      .catch((err) => {
-        alert("삭제 중 에러가 발생했습니다.");
-        console.error(err);
-      });
-  };
-
   if (loading) {
     return <p>로딩 중...</p>;
   }
@@ -78,8 +51,39 @@ const ChallengeRead = () => {
     return <p>챌린지 정보를 찾을 수 없습니다.</p>;
   }
 
-  // 현재 로그인 사용자가 챌린지 작성자인지 확인
-  const isOwner = currentUser?.username === challenge?.username;
+ // 현재 로그인 사용자가 챌린지 작성자인지 확인
+const isOwner = currentUser && challenge && currentUser.username === challenge.username;
+
+const confirmEdit = () => {
+  // 현재 사용자가 작성자인 경우에만 동작
+  if (!isOwner) {
+    alert("수정 권한이 없습니다.");
+    return;
+  }
+
+  setShowEditModal(false);
+  navigate(`/challenge/edit/${challengeId}`); // 수정 페이지로 이동
+};
+
+const confirmDelete = () => {
+  // 현재 사용자가 작성자인 경우에만 동작
+  if (!isOwner) {
+    alert("삭제 권한이 없습니다.");
+    return;
+  }
+
+  setShowDeleteModal(false);
+  challengeService
+    .deleteChallenge(challengeId)
+    .then(() => {
+      alert("챌린지가 삭제되었습니다.");
+      navigate("/challenge"); // 목록 페이지로 이동
+    })
+    .catch((err) => {
+      alert("삭제 중 에러가 발생했습니다.");
+      console.error(err);
+    });
+};
 
   return (
     <div className="challenge-read-container">
@@ -93,7 +97,7 @@ const ChallengeRead = () => {
               <tbody>
                 <tr>
                   <th scope="row">작성자</th>
-                  <td>{challenge.username || "알 수 없음"}님</td>
+                  <td>{challenge.name|| "알 수 없음"}님</td>
                 </tr>
                 <tr>
                   <th scope="row">내용</th>
@@ -120,18 +124,18 @@ const ChallengeRead = () => {
           </div>
         </div>
         {/* 작성자만 버튼 표시 */}
-        {isOwner && (
-          <div className="footer-section">
-            <div className="owner-buttons">
-              <button className="btn btn-outline-warning" onClick={handleEdit}>
-                수정하기
-              </button>
-              <button className="btn btn-danger" onClick={handleDelete}>
-                삭제하기
-              </button>
-            </div>
-          </div>
-        )}
+        {currentUser && challenge && isOwner && (
+  <div className="footer-section">
+    <div className="owner-buttons">
+      <button className="btn btn-outline-warning" onClick={confirmEdit}>
+        수정하기
+      </button>
+      <button className="btn btn-danger" onClick={confirmDelete}>
+        삭제하기
+      </button>
+    </div>
+  </div>
+)}
       </div>
 
       {/* 수정 모달 */}

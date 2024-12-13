@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import challengeService from "../../services/challengeService";
-import Navsidebar from "../../components/Navsidebar";
+import '../../pages/challengeMe.css'
 
 const ChallengeMe = () => {
   const [myChallenges, setMyChallenges] = useState([]);

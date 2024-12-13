@@ -19,24 +19,24 @@ const Challenge = () => {
       try {
         const data = await challengeService.getChallenges();
   
-        // 필터링: 공개 글 + 비공개 글(작성자만)
-        // const filteredData = data.filter(
-          // (challenge) =>
-            // challenge.isPublic || (currentUser && currentUser.username === challenge.username)
-        //   challenge.isPublic  (currentUser && currentUser.username === challenge.username)
-        // );
+        // 필터링: 공개 글 또는 작성자가 현재 사용자와 동일한 비공개 글만 포함
+        const filteredData = data.filter(
+          (challenge) =>
+            challenge.isPublic || (currentUser && currentUser.username === challenge.username)
+        );
   
-        setChallenges(data);
+        setChallenges(filteredData); // 필터링된 데이터를 상태에 설정
       } catch (error) {
         setErrorMessage("챌린지를 불러오는 중 문제가 발생했습니다.");
+        console.error(error);
       } finally {
-        setLoading(); // 반드시 호출
+        setLoading(false); // 로딩 상태 변경
       }
     };
   
     fetchChallenges();
-  }, []);
-
+  }, [currentUser]); // currentUser가 변경될 때만 useEffect 실행
+  
   const calculateDaysLeft = (endDate) => {
     const today = new Date();
     const end = new Date(endDate);
@@ -45,14 +45,25 @@ const Challenge = () => {
   };
 
   const isUserChallenge = (challenge) => {
-    console.log(currentUser.username,challenge.username);
-    return currentUser?.username === challenge?.username; // 현재 사용자와 챌린지 작성자 비교
+    if (!currentUser || !challenge) {
+      return false;
+    }
+    return currentUser.username === challenge.username;
   };
 
-  const handleJournalClick = (challengeId) => {
-    navigate("/journal/"+challengeId); // Journal 페이지로 이동
-  };
+  const handleJournalClick = (challenge) => {
+    if (!currentUser || !challenge) {
+        console.error("사용자 정보 또는 챌린지 정보가 없습니다.");
+        return;
+    }
 
+    // 게시글 작성자와 현재 로그인 사용자가 같은지 확인
+    if (currentUser.username === challenge.username) {
+        navigate(`/journal/${challenge.id}`); // Journal 페이지로 이동
+    } else {
+        alert("해당 챌린지에 기록을 작성할 권한이 없습니다."); // 권한 없음 메시지
+    }
+};
   const handleChallengeClick = (Id) => {
     navigate(`/challengeread/${Id}`); // ChallengeRead 페이지로 이동
   };
@@ -76,52 +87,55 @@ const Challenge = () => {
           {/* 챌린지 헤더 */}
           <div className="challenge-header">
             <span className="challenge-user">
-              <h4>{challenge.username}님의 <strong>onepointup</strong>!</h4>
+              <h4>{challenge.name}님의 <strong>onepointup</strong>!</h4>
             </span>
             <span className="challenge-title">제목:{challenge.title}</span>
              {/* 챌린지 설명 */}
           <div className="challenge-description">내용:{challenge.description}</div>
-            <div className="challenge-progress">
-              <div className="progress-bar">
-                <div
-                  className="progress-bar-fill"
-                  style={{ width: `${challenge.progress || 0}%` }}
-                ></div>달성률%
-              </div>
-              <span className="challenge-days">
-               Day - {calculateDaysLeft(challenge.endDate)}
-              </span>
-            </div>
+         {/* 진행률 바 및 달성률 */}
+         <div className="challenge-progress">
+          <div className="progress-bar">
+            <div
+              className="progress-bar-fill"
+              style={{ width: `${challenge.progress || 0}%` }} // 기본값 0% 처리
+            ></div>
           </div>
-          
-         
-
-          {/* 챌린지 추가 버튼 */}
-          <div className="challenge-actions">
-            {isUserChallenge(challenge) && (
-              <button
-                className="record-button"
-                onClick={(e) => {
-                  e.stopPropagation(); // 부모의 클릭 이벤트 막기
-                  handleJournalClick(challenge.id);
-                }}
-              >
-                기록하기
-              </button>
-            )}
-            <button
-              className="cheer-button"
-              onClick={(e) => {
-                e.stopPropagation(); // 부모의 클릭 이벤트 막기
-                handleCommentClick(challenge.id);
-              }}
-            >
-              응원댓글남기기
-            </button>
+          <div className="progress-text">
+            {challenge.progress !== undefined ? `${challenge.progress}% 달성` : "달성률 없음"}
           </div>
         </div>
-      ))}
+        
+        <span className="challenge-days">
+          Day - {calculateDaysLeft(challenge.endDate)}
+        </span>
+      </div>
+
+      {/* 챌린지 추가 버튼 */}
+      <div className="challenge-actions">
+        {isUserChallenge(challenge) && (
+          <button
+            className="record-button"
+            onClick={(e) => {
+              e.stopPropagation(); // 부모의 클릭 이벤트 막기
+              handleJournalClick(challenge);
+            }}
+          >
+            기록하기
+          </button>
+        )}
+        <button
+          className="cheer-button"
+          onClick={(e) => {
+            e.stopPropagation(); // 부모의 클릭 이벤트 막기
+            handleCommentClick(challenge.id);
+          }}
+        >
+          응원댓글남기기
+        </button>
+      </div>
     </div>
+  ))}
+</div>
   );
 };
 

@@ -1,5 +1,6 @@
 import axios from "axios";
 import { BASE_API_URL } from "../common/constants";
+import { authHeader } from "../services/base.service"// authHeader 가져오기
 
 const API_URL = `${BASE_API_URL}/api/challenges`;
 
@@ -27,61 +28,6 @@ class ChallengeService {
       throw error;
     }
   }
-
-  async getChallengeById(challengeId) {
-    try {
-      const response = await axios.get(`${API_URL}/${challengeId}`);
-      return response.data;
-    } catch (error) {
-      console.error(`Error fetching challenge with ID ${challengeId}:`, error);
-      throw error;
-    }
-  }
-  
-  async getChallengeById(challengeId) {
-    console.log(challengeId);
-    try {
-
-      if (!challengeId) throw new Error("Challenge ID is required");
-      const url = `${API_URL}/${challengeId}`;
-      console.log("Fetching challenge from URL:", url); // 디버깅 로그
-      const response = await axios.get(url);
-      return response.data;
-    } catch (error) {
-      console.error("Error fetching challenge by ID:", error);
-      throw error;
-    }
-  }
-  // 삭제하기
-  async deleteChallenge(challengeId) {
-    try {
-      if (!challengeId) throw new Error("Challenge ID is required");
-      const url = `${API_URL}/${challengeId}`;
-      console.log("Deleting challenge from URL:", url); // 디버깅 로그
-      const response = await axios.delete(url);
-      console.log("Challenge deleted successfully:", response.data);
-      return response.data;
-    } catch (error) {
-      console.error(`Error deleting challenge with ID ${challengeId}:`, error);
-      throw error;
-    }
-  }
-
-  // 수정하기
-  async updateChallenge(challengeId, updatedChallenge) {
-    try {
-      if (!challengeId) throw new Error("Challenge ID is required");
-      if (!updatedChallenge) throw new Error("Updated challenge data is required");
-      const url = `${API_URL}/${challengeId}`;
-      console.log("Updating challenge at URL:", url, updatedChallenge); // 디버깅 로그
-      const response = await axios.put(url, updatedChallenge);
-      console.log("Challenge updated successfully:", response.data);
-      return response.data;
-    } catch (error) {
-      console.error(`Error updating challenge with ID ${challengeId}:`, error);
-      throw error;
-    }
-  }
   async getMyChallenges(username) {
     try {
       const response = await axios.get(API_URL);
@@ -90,6 +36,56 @@ class ChallengeService {
       return myChallenges;
     } catch (error) {
       console.error(`Error fetching challenges for user ${username}:`, error);
+      throw error;
+    }
+  }
+
+  // async getChallengeById(challengeId) {
+  //   try {
+  //     const response = await axios.get(`${API_URL}/${challengeId}`);
+  //     return response.data;
+  //   } catch (error) {
+  //     console.error(`Error fetching challenge with ID ${challengeId}:`, error);
+  //     throw error;
+  //   }
+  // }
+  
+  async getChallengeById(challengeId) {
+    try {
+
+      if (!challengeId) throw new Error("Challenge ID is required");
+      const url = `${API_URL}/${challengeId}`;
+      const response = await axios.get(url);
+      return response.data;
+    } catch (error) {
+      console.error("Error fetching challenge by ID:", error);
+      throw error;
+    }
+  }
+
+  // 삭제하기
+  async deleteChallenge(challengeId) {
+    try {
+      const response = await axios.delete(`${API_URL}/${challengeId}`, { headers: authHeader() });
+      console.log("Challenge deleted successfully:", response.data);
+      return response.data;
+    } catch (error) {
+      console.error(`Error deleting challenge with ID ${challengeId}:`, error);
+      throw error;
+    }
+  }
+
+  async updateChallenge(challengeId, updatedChallenge) {
+    try {
+      const response = await axios.put(
+        `${API_URL}/${challengeId}`,
+        updatedChallenge,
+        { headers: authHeader() }
+      );
+      console.log("Challenge updated successfully:", response.data);
+      return response.data;
+    } catch (error) {
+      console.error(`Error updating challenge with ID ${challengeId}:`, error);
       throw error;
     }
   }
