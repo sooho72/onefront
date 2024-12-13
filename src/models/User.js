@@ -7,4 +7,5 @@ constructor(username, password, name, role, token, id) {
     this.token = token;
     this.id = id;
     }
-}
+    
+    }

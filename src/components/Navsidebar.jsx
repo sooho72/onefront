@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from "react";
 import "./Navsidebar.css";
-import { useDispatch, useSelector } from 'react-redux';
-import { clearCurrentUser } from '../store/actions/user';
-const Navsidebar = ({ name, profilePicUrl }) => {
+import { useDispatch, useSelector } from "react-redux";
+import { clearCurrentUser } from "../store/actions/user";
+
+const Navsidebar = ({ profilePicUrl }) => {
   const [currentTime, setCurrentTime] = useState("");
-  const currentUser=useSelector((state) => state.user);
+  const currentUser = useSelector((state) => state.user);
 
   useEffect(() => {
     const updateTime = () => {
@@ -29,9 +30,15 @@ const Navsidebar = ({ name, profilePicUrl }) => {
     <div className="navbar-side">
       <div className="profile-section-side">
         <div className="profile-pic-side">
-          <img src={profilePicUrl} alt="프로필" className="profile-image-side" />
+          <img
+            src={profilePicUrl || "/default-profile.png"} // 기본 이미지 설정
+            alt=""
+            className="profile-image-side"
+          />
         </div>
-        <div className="welcome-text-side">{currentUser.name}님 반갑습니다</div>
+        <div className="welcome-text-side">
+          {currentUser?.name ? `${currentUser.name}님 반갑습니다` : "방문자님 반갑습니다"} {/* 방어 코드 추가 */}
+        </div>
         <div className="time-side">{currentTime}</div>
         <div className="calendar-side">
           <div className="calendar-header-side">

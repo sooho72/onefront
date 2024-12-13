@@ -1,7 +1,7 @@
 /* 왼쪽 고정 박스 스타일 */
 .navbar-side {
   position: fixed;
-  top: 80px; /* 상단 네비게이션과 겹치지 않도록 여백 */
+  top: 150px; /* 상단 네비게이션과 겹치지 않도록 여백 */
   left: 20px; /* 왼쪽 고정 */
   width: 250px;
   background-color: #f8f9fa;
@@ -67,3 +67,7 @@
   object-fit: cover; /* 이미지를 박스 크기에 맞게 */
 }
 
+.user-icon{
+  font-size: 100px;
+  color: lightskyblue;
+}

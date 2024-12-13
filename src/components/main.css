@@ -1,0 +1,6 @@
+.main-content {
+    margin-left: 300px; /* 사이드바 너비 + 여백 */
+    padding: 20px;
+    box-sizing: border-box;
+  }
+  

@@ -1,93 +1,184 @@
+
+
 /* 전체 컨테이너 */
+
 .challenge-container {
-    padding: 20px;
-    font-family: Arial, sans-serif;
-    background-color: #f8f9fa;
-    border: 1px solid #ddd;
-    border-radius: 10px;
-    margin: 20px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  font-family: Arial, sans-serif;
+  background-color: #f8f9fa;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  margin: 20px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  max-width: 800px; /* 게시글 최대 너비 제한 */
+  box-sizing: border-box;
+  margin-left: 300px; /* 왼쪽 Navsidebar와 간격 유지 */
+  padding-top: 100px; /* 상단 네비게이션 바와 겹치지 않도록 */
+}
+
+/* 챌린지 헤더 */
+.challenge-header {
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+}
+
+/* 유저 정보 표시 */
+.challenge-user {
+  font-size: 16px;
+  font-weight: bold;
+  color: #007bff; /* 유저네임 색상 */
+  white-space: nowrap; /* 텍스트 줄바꿈 방지 */
+  overflow: hidden;
+  text-overflow: ellipsis; /* 긴 텍스트는 생략 부호(...) 추가 */
+  display: block; /* 요소를 명시적으로 블록 요소로 설정 */
+  margin-bottom: 5px; /* 다른 요소와 간격 추가 */
+}
+
+/* 챌린지 제목 */
+.challenge-title {
+  font-size: 20px;
+  font-weight: bold;
+  color: #333;
+}
+
+/* 진행률 바 */
+.challenge-progress {
+  display: flex;
+  align-items: center;
+  gap: 30px;
+}
+
+.progress-bar {
+  width: 100%; /* 부모 크기에 따라 조정 */
+  max-width: 200px; /* 최대 너비 */
+  height: 30px;
+  background-color: #e9ecef;
+  border-radius: 5px;
+  overflow: hidden;
+  position: relative;
+}
+
+.progress-bar-fill {
+  height: 100%;
+  background-color: #28a745; /* 진행률 색상 */
+  position: absolute;
+  top: 0;
+  left: 0;
+  transition: width 0.5s ease-in-out;
+}
+
+/* D-Day */
+.challenge-days {
+  font-size: 20px;
+  font-weight: bold;
+  color: #dc3545;
+}
+
+/* 챌린지 설명 */
+.challenge-description {
+  margin-top: 20px;
+  font-size: 14px;
+  color: #555;
+}
+
+/* 액션 버튼들 */
+.challenge-actions {
+  margin-top: 20px;
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap; /* 버튼이 한 줄에 안 들어갈 경우 줄바꿈 */
+}
+
+.record-button,
+.cheer-button {
+  padding: 10px 20px;
+  font-size: 14px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+  width: auto; /* 기본 크기 */
+}
+
+.record-button {
+  background-color: #007bff;
+  color: white;
+}
+
+.cheer-button {
+  background-color: #ffc107;
+  color: #333;
+}
+
+.record-button:hover {
+  background-color: #0056b3;
+}
+
+.cheer-button:hover {
+  background-color: #e0a800;
+}
+
+.record-button:active,
+.cheer-button:active {
+  transform: scale(0.95);
+}
+
+/* 반응형 디자인 */
+@media (max-width: 768px) {
+  .challenge-container {
+    padding: 15px; /* 패딩 줄임 */
+    margin: 10px;
   }
-  
-  /* 챌린지 헤더 */
-  .challenge-header {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-  }
-  
+
   .challenge-user {
-    font-size: 16px;
-    font-weight: bold;
+    font-size: 14px;
   }
-  
+
   .challenge-title {
-    font-size: 18px;
-    font-weight: bold;
-    color: #333;
+    font-size: 16px;
   }
-  
-  /* 진행률 바 */
-  .challenge-progress {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-  }
-  
+
   .progress-bar {
-    width: 200px;
-    height: 10px;
-    background-color: #e9ecef;
-    border-radius: 5px;
-    overflow: hidden;
-    position: relative;
+    max-width: 150px; /* 진행률 바 크기 조정 */
   }
-  
-  .progress-bar-fill {
-    height: 100%;
-    background-color: #28a745; /* 진행률 색상 */
-    position: absolute;
-    top: 0;
-    left: 0;
-  }
-  
-  /* D-Day */
+
   .challenge-days {
-    font-size: 14px;
-    font-weight: bold;
-    color: #dc3545;
+    font-size: 12px;
   }
-  
-  /* 챌린지 설명 */
+
   .challenge-description {
-    margin-top: 20px;
-    font-size: 14px;
-    color: #555;
+    font-size: 12px;
   }
-  
-  /* 액션 버튼들 */
-  .challenge-actions {
-    margin-top: 20px;
-    display: flex;
-    gap: 10px;
-  }
-  
+
   .record-button,
   .cheer-button {
-    padding: 10px 20px;
-    font-size: 14px;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
+    padding: 8px 16px; /* 버튼 크기 줄임 */
+    font-size: 12px; /* 폰트 크기 줄임 */
   }
-  
-  .record-button {
-    background-color: #007bff;
-    color: white;
+}
+
+@media (max-width: 480px) {
+  .challenge-container {
+    padding: 10px;
+    margin: 5px;
   }
-  
+
+  .challenge-user,
+  .challenge-title,
+  .challenge-days,
+  .challenge-description {
+    font-size: 12px; /* 전반적인 폰트 크기 줄임 */
+  }
+
+  .progress-bar {
+    max-width: 100px; /* 더 작은 진행률 바 */
+  }
+
+  .record-button,
   .cheer-button {
-    background-color: #ffc107;
-    color: #333;
+    padding: 6px 12px;
+    font-size: 10px;
   }
-  
+}

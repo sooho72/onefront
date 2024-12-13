@@ -3,7 +3,8 @@ import BaseEntity from "./BaseEntity";
 class Challenge extends BaseEntity {
   constructor(
     id,
-    user,
+    name,
+    username,
     title,
     description,
     startDate,
@@ -14,7 +15,8 @@ class Challenge extends BaseEntity {
   ) {
     super(); // BaseEntity 생성자 호출
     this.id = id;
-    this.user = user;
+    this.name=name;
+    this.username = username;
     this.title = title;
     this.description = description;
     this.startDate = startDate;

@@ -15,11 +15,7 @@ const Navbar = () => {
     }
     return(
         <nav className='navbar navbar-expand navbar-dark bg-dark'>
-            
-                <a href='https://react.dev' className='navbar-brand ms-1'>
-                    <img src={logo} className='App-logo' alt='logo' />
-                    로고홈
-                </a>
+                    <NavLink to="/main" href='##' className='nav-link'><img src={logo} className='App-logo' alt='logo' /></NavLink>
                 <div className='navbar-nav me-auto'>
                     {currentUser?.role===Role.ADMIN &&
                         <li className='nav-item'>
@@ -30,7 +26,7 @@ const Navbar = () => {
                         <NavLink to="/challengeregister" href='##' className='nav-link'>챌린지시작하기</NavLink>
                     </li>
                     <li className='nav-item'>
-                        <NavLink to="/journal" href='##' className='nav-link'>챌린지기록하기</NavLink>
+                        <NavLink to="/challengeme" href='##' className='nav-link'>나의챌린지</NavLink>
                     </li>
                     <li className='nav-item'>
                         <NavLink to="/challenge" href='##' className='nav-link'>챌린지응원하기</NavLink>
