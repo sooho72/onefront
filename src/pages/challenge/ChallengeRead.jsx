@@ -1,3 +1,4 @@
+// src/pages/challenge/ChallengeRead.jsx
 import React, { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux"; // Redux로 사용자 정보 가져오기
@@ -51,39 +52,39 @@ const ChallengeRead = () => {
     return <p>챌린지 정보를 찾을 수 없습니다.</p>;
   }
 
- // 현재 로그인 사용자가 챌린지 작성자인지 확인
-const isOwner = currentUser && challenge && currentUser.username === challenge.username;
+  // 현재 로그인 사용자가 챌린지 작성자인지 확인
+  const isOwner = currentUser && challenge && currentUser.username === challenge.username;
 
-const confirmEdit = () => {
-  // 현재 사용자가 작성자인 경우에만 동작
-  if (!isOwner) {
-    alert("수정 권한이 없습니다.");
-    return;
-  }
+  const confirmEdit = () => {
+    // 현재 사용자가 작성자인 경우에만 동작
+    if (!isOwner) {
+      alert("수정 권한이 없습니다.");
+      return;
+    }
 
-  setShowEditModal(false);
-  navigate(`/challenge/edit/${challengeId}`); // 수정 페이지로 이동
-};
+    setShowEditModal(false);
+    navigate(`/challenge/edit/${challengeId}`); // 수정 페이지로 이동
+  };
 
-const confirmDelete = () => {
-  // 현재 사용자가 작성자인 경우에만 동작
-  if (!isOwner) {
-    alert("삭제 권한이 없습니다.");
-    return;
-  }
+  const confirmDelete = () => {
+    // 현재 사용자가 작성자인 경우에만 동작
+    if (!isOwner) {
+      alert("삭제 권한이 없습니다.");
+      return;
+    }
 
-  setShowDeleteModal(false);
-  challengeService
-    .deleteChallenge(challengeId)
-    .then(() => {
-      alert("챌린지가 삭제되었습니다.");
-      navigate("/challenge"); // 목록 페이지로 이동
-    })
-    .catch((err) => {
-      alert("삭제 중 에러가 발생했습니다.");
-      console.error(err);
-    });
-};
+    setShowDeleteModal(false);
+    challengeService
+      .deleteChallenge(challengeId)
+      .then(() => {
+        alert("챌린지가 삭제되었습니다.");
+        navigate("/challenge"); // 목록 페이지로 이동
+      })
+      .catch((err) => {
+        alert("삭제 중 에러가 발생했습니다.");
+        console.error(err);
+      });
+  };
 
   return (
     <div className="challenge-read-container">
@@ -97,7 +98,7 @@ const confirmDelete = () => {
               <tbody>
                 <tr>
                   <th scope="row">작성자</th>
-                  <td>{challenge.name|| "알 수 없음"}님</td>
+                  <td>{challenge.name || "알 수 없음"}님</td>
                 </tr>
                 <tr>
                   <th scope="row">내용</th>
@@ -125,17 +126,33 @@ const confirmDelete = () => {
         </div>
         {/* 작성자만 버튼 표시 */}
         {currentUser && challenge && isOwner && (
-  <div className="footer-section">
-    <div className="owner-buttons">
-      <button className="btn btn-outline-warning" onClick={confirmEdit}>
-        수정하기
-      </button>
-      <button className="btn btn-danger" onClick={confirmDelete}>
-        삭제하기
-      </button>
-    </div>
-  </div>
-)}
+          <div className="footer-section">
+            <div className="owner-buttons">
+              {/* "기록하기" 버튼을 왼쪽에 배치 */}
+              <button
+                className="btn btn-outline-warning record-button"
+                onClick={() => navigate(`/journal/${challenge.id}`)}
+              >
+                기록하기
+              </button>
+              {/* "수정하기" 및 "삭제하기" 버튼을 오른쪽에 배치 */}
+              <div className="action-buttons">
+                <button
+                  className="btn btn-outline-primary"
+                  onClick={() => setShowEditModal(true)}
+                >
+                  수정하기
+                </button>
+                <button
+                  className="btn btn-danger"
+                  onClick={() => setShowDeleteModal(true)}
+                >
+                  삭제하기
+                </button>
+              </div>
+            </div>
+          </div>
+        )}
       </div>
 
       {/* 수정 모달 */}

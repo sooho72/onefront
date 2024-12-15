@@ -1,41 +1,131 @@
+/* src/pages/challenge/ChallengeRead.css */
+
+/* 컨테이너 설정 */
 .challenge-read-container {
-  max-width: 800px;
-  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  /* 전체 뷰포트 높이 사용 */
+  background-color: #f0f0f0; /* 배경색 */
   padding: 20px;
-  font-family: Arial, sans-serif;
+  box-sizing: border-box;
 }
 
+/* 챌린지 콘텐츠 */
 .challenge-content {
-  background-color: #f8f9fa;
-  padding: 20px;
+  width: 100%;
+  max-width: 600px;
+}
+
+/* 카드 스타일 */
+.card {
+  background-color: #fff;
   border-radius: 10px;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
   margin-bottom: 20px;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.card-header {
+  padding: 15px;
+  border-bottom: 1px solid #ddd;
+  background-color: #f7f7f7;
+}
+
+.card-header h3 {
+  margin: 0;
+  color: #333;
+}
+
+.card-body {
+  padding: 15px;
+}
+
+.table th {
+  width: 30%;
 }
 
 .footer-section {
   display: flex;
   justify-content: space-between;
-  align-items: center;
-  margin-top: 20px;
-}
-
-.comment-button {
-  padding: 10px 20px;
-  font-size: 14px;
-  background-color: #007bff;
-  color: white;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
-}
-
-.comment-button:hover {
-  background-color: #0056b3;
+  width: 100%;
 }
 
 .owner-buttons {
   display: flex;
+  justify-content: space-between;
+  width: 100%;
+  align-items: center;
+}
+
+/* "기록하기" 버튼을 왼쪽에 배치 */
+.record-button {
+  margin-right: auto; /* 왼쪽에 위치 */
+  margin-bottom: 10px;
+}
+
+/* "수정하기" 및 "삭제하기" 버튼을 오른쪽에 배치 */
+.action-buttons {
+  display: flex;
   gap: 10px;
+}
+
+.action-buttons .btn {
+  margin-left: 10px;
+}
+
+/* 로딩 스피너 스타일 */
+.challenge-me-loading {
+  font-size: 1.5em;
+  color: #007bff;
+  margin-top: 20px;
+}
+
+/* 반응형 디자인 */
+@media (max-width: 768px) {
+  .challenge-content {
+    max-width: 100%;
+  }
+
+  .card-header h3 {
+    font-size: 1.5em;
+  }
+
+  .table th, .table td {
+    font-size: 0.9em;
+  }
+
+  .record-button {
+    font-size: 0.9em;
+    padding: 8px 16px;
+  }
+
+  .action-buttons .btn {
+    font-size: 0.9em;
+    padding: 8px 16px;
+  }
+}
+
+@media (max-width: 480px) {
+  .challenge-content {
+    max-width: 100%;
+  }
+
+  .card-header h3 {
+    font-size: 1.2em;
+  }
+
+  .table th, .table td {
+    font-size: 0.8em;
+  }
+
+  .record-button {
+    font-size: 0.8em;
+    padding: 6px 12px;
+  }
+
+  .action-buttons .btn {
+    font-size: 0.8em;
+    padding: 6px 12px;
+  }
 }

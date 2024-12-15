@@ -1,7 +1,7 @@
 /* 전체 레이아웃 */
 .challenge-page-side {
   display: flex;
-  margin-left: 300px; /* 왼쪽 Navsidebar와 간격 유지 */
+  margin-left: 200px; /* 왼쪽 Navsidebar와 간격 유지 */
   padding-top: 100px; /* 상단 네비게이션 바와 겹치지 않도록 */
 }
 

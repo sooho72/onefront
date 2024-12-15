@@ -1,22 +1,65 @@
+/* src/components/Main/Main.css */
 
-.container {
-    width: 80%;
-    margin: auto;
-    padding: 20px;
-}
-
-.main-image {
+/* 컨테이너 설정 */
+.main-container {
+    display: flex;
+   
+    justify-content: center;
+    height: 0vh; /* 전체 뷰포트 높이 사용 */
+    background-color: #f0f0f0; /* 배경색 (원하는 대로 변경 가능) */
+  }
+  
+  /* 메인 이미지 스타일 */
+  .main-image {
     border: 2px solid #ccc;
     height: 300px;
+    width: 80%;
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 24px;
-    font-weight: bold;
-    color: #333;
-}
-
-.menu a:hover {
-    background-color: #007bff;
-    color: #fff;
-}
+    background-color: #fff; /* 배경색 (원하는 대로 변경 가능) */
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    cursor: pointer; /* 클릭 가능 표시 */
+  }
+  
+  /* 애니메이션 텍스트 컨테이너 */
+  .animated-text {
+    display: flex;
+    flex-direction: column; /* 세로 배열 */
+    align-items: center;
+    justify-content: center;
+  }
+  
+  /* 개별 단어 스타일 */
+  .animated-word {
+    font-size: 3em; /* 글자 크기 조정 */
+    font-weight: 800;
+    text-transform: uppercase;
+    color: #555eff; /* 텍스트 색상 (원하는 대로 변경 가능) */
+    margin: 10px 0; /* 단어 간 간격 */
+    will-change: transform, opacity; /* 성능 최적화 */
+  }
+  
+  /* 반응형 디자인 */
+  @media (max-width: 768px) {
+    .main-image {
+      height: 200px;
+      width: 90%;
+    }
+  
+    .animated-word {
+      font-size: 2em;
+      margin: 8px 0;
+    }
+  }
+  
+  @media (max-width: 480px) {
+    .animated-word {
+      font-size: 1.5em;
+      margin: 6px 0;
+    }
+  }
+  

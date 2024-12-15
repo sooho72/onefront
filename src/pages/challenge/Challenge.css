@@ -3,7 +3,7 @@
   padding: 20px;
   font-family: Arial, sans-serif;
   background-color: #f9f9f9;
-  margin-left: 280px; /* Sidebar와 간격 유지 */
+  margin-left: 200px; /* Sidebar와 간격 유지 */
 }
 
 /* 로딩 메시지 및 오류 메시지 */

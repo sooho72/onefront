@@ -86,6 +86,17 @@ const ChallengeEdit = () => {
           ></textarea>
         </div>
         <div className="form-group">
+          <label htmlFor="startDate">시작 날짜</label>
+          <input
+            type="date"
+            id="startDate"
+            name="startDate"
+            value={challenge.startDate}
+            onChange={handleChange}
+            required
+          />
+        </div>
+        <div className="form-group">
           <label htmlFor="endDate">종료 날짜</label>
           <input
             type="date"
@@ -94,18 +105,6 @@ const ChallengeEdit = () => {
             value={challenge.endDate}
             onChange={handleChange}
             required
-          />
-        </div>
-        <div className="form-group">
-          <label htmlFor="progress">진행률 (%)</label>
-          <input
-            type="number"
-            id="progress"
-            name="progress"
-            value={challenge.progress}
-            onChange={handleChange}
-            min="0"
-            max="100"
           />
         </div>
         <div className="form-actions">

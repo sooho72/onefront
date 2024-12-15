@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import Navsidebar from "../../components/Navsidebar"; // 사이드바 추가
 import "./ChallengeRegister.css";
-import Challenge from "../../models/Challenge"; // Challenge 모델 가져오기
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { challengeRegisterService } from "../../services/challengeRegisterService";
