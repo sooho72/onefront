@@ -46,7 +46,7 @@ const Login=()=>{
           .then((response) => {
             //setCurrentUser로 만든 액션을 유저 리듀서에 전달
             dispatch(setCurrentUser(response.data));
-            navigate('/profile');
+            navigate('/main');
           })
           .catch((error) => {
             console.log(error);

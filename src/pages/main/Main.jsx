@@ -2,6 +2,7 @@
 import React, { useState, useCallback, useRef, useEffect } from "react";
 import { useTransition, animated } from "@react-spring/web";
 import "./Main.css";
+import Navsidebar from "../../components/Navsidebar";
 
 function Main() {
   const ref = useRef([]);
@@ -28,6 +29,7 @@ function Main() {
 
   return (
     <div className="main-container">
+      <Navsidebar/>
       <div className="main-image">
         <div className="animated-text" onClick={cycleItems}>
           {transitions((style, item, t, index) => (
