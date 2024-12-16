@@ -3,6 +3,7 @@
 /* 컨테이너 설정 */
 .main-container {
     display: flex;
+    margin-left: 200px;
    
     justify-content: center;
     height: 0vh; /* 전체 뷰포트 높이 사용 */

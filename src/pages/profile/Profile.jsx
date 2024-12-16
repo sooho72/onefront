@@ -36,19 +36,19 @@ const Profile = () => {
     }, [currentUser.username]);
 
     // 권한 변경
-    const changeRole = () => {
-        const newRole = currentUser.role === Role.ADMIN ? Role.USER : Role.ADMIN;
+    // const changeRole = () => {
+    //     const newRole = currentUser.role === Role.ADMIN ? Role.USER : Role.ADMIN;
 
-        userService.changeRole(newRole)
-            .then(() => {
-                dispatch(clearCurrentUser());
-                window.location.href = "/login";
-            })
-            .catch((err) => {
-                setErrorMessage("예기치 않은 에러가 발생했습니다.");
-                console.log(err);
-            });
-    };
+    //     userService.changeRole(newRole)
+    //         .then(() => {
+    //             dispatch(clearCurrentUser());
+    //             window.location.href = "/login";
+    //         })
+    //         .catch((err) => {
+    //             setErrorMessage("예기치 않은 에러가 발생했습니다.");
+    //             console.log(err);
+    //         });
+    // };
 
     // 파일 선택 핸들러
     const handleFileChange = (event) => {
@@ -102,9 +102,9 @@ const Profile = () => {
                     </div>
                     <div className="col-6 text-end">
                         현재 유저의 권한은 <strong>{currentUser?.role}</strong>입니다.
-                        <button onClick={changeRole} className="btn btn-primary ms-3">
+                        {/* <button onClick={changeRole} className="btn btn-primary ms-3">
                             권한 변경
-                        </button>
+                        </button> */}
                     </div>
                 </div>
                 <div className="card-body">

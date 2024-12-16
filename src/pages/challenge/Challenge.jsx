@@ -4,7 +4,6 @@ import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux"; // Redux 사용
 import { useNavigate } from "react-router-dom"; // 페이지 이동
 import challengeService from '../../services/challengeService';
-import commentService from '../../services/commentService'; // commentService 임포트
 import '../../pages/challenge/Challenge.css'; // CSS 파일 가져오기
 import Navsidebar from "../../components/Navsidebar";
 import CommentModal from "../../components/CommentModal"; // CommentModal 임포트

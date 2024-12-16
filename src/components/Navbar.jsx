@@ -1,5 +1,4 @@
 import { NavLink, useNavigate } from "react-router-dom";
-import logo from "../logo.svg";
 import { useDispatch, useSelector } from "react-redux";
 import { clearCurrentUser } from "../store/actions/user";
 import Role from "../models/Role";
