@@ -100,13 +100,12 @@ const Profile = () => {
                     <div className="row">
                         <h3>{currentUser?.username}님의 프로필</h3>
                     </div>
-                    <div className="col-6 text-end">
                         현재 유저의 권한은 <strong>{currentUser?.role}</strong>입니다.
                         {/* <button onClick={changeRole} className="btn btn-primary ms-3">
                             권한 변경
                         </button> */}
                     </div>
-                </div>
+                
                 <div className="card-body">
                     {/* 프로필 이미지 */}
                     <div className="text-center">

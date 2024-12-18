@@ -9,6 +9,14 @@ class UserService {
     changeRole(role) {
         return axios.put(`${API_URL}/change/${role}`, {}, { headers: authHeader() });
     }
+    //이름 변경
+    updateUserName(username, newName) {
+        return axios.put(
+            `${API_URL}/update-name`, 
+            { username, name: newName }, 
+            { headers: authHeader() }
+        );
+    }
 
     // 프로필 이미지 업로드
     uploadProfileImage(username, file) {
