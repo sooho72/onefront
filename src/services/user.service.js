@@ -4,11 +4,29 @@ import { authHeader } from "./base.service";
 
 const API_URL = BASE_API_URL + "/api/users";
 
+const API_URL_ADMIN = BASE_API_URL + "/api/admin"; //관리자 권한 변경 
+
 class UserService {
-    // 역할 변경
-    changeRole(role) {
-        return axios.put(`${API_URL}/change/${role}`, {}, { headers: authHeader() });
+
+    // 역할 변경 <관리자>
+    changeRole(username,role)  {
+        return axios.put(`${API_URL_ADMIN}/change/${role}/${username}`,{}, { headers: authHeader() });
     }
+    // 가입한 모든 유저 불러오기 <관리자>
+      getAllUsers() {
+        return axios.get(`${API_URL_ADMIN}`, { headers: authHeader() });
+    }
+    // 지금 로그인한 유저 <관리자>
+    getCurrentUser() {
+        return axios.get(`${API_URL_ADMIN}`, { headers: authHeader() })
+            .then(response => response.data.currentUser); // currentUser 데이터만 반환
+    }
+    
+    // 사용자 정보 가져오기
+    getUserInfo(username) {
+        return axios.get(`${API_URL}/profile`, { headers: authHeader() });
+    }
+
     //이름 변경
     updateUserName(username, newName) {
         return axios.put(
@@ -17,6 +35,8 @@ class UserService {
             { headers: authHeader() }
         );
     }
+     
+    
 
     // 프로필 이미지 업로드
     uploadProfileImage(username, file) {
@@ -32,10 +52,6 @@ class UserService {
         });
     }
 
-    // 사용자 정보 가져오기
-    getUserInfo(username) {
-        return axios.get(`${API_URL}/profile`, { headers: authHeader() });
-    }
 
     // 프로필 이미지 가져오기
     getProfileImage(username) {

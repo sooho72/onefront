@@ -28,12 +28,11 @@ const Journal = () => {
 
   // Mood를 이모티콘으로 매핑
   const moodEmojis = {
-    [Mood.UNDEFINED]: "🤔",
-    HAPPY: "😊",
+    [Mood.HAPPY]: "😊",
+    UNDEFINED: "🤔",
     SAD: "😢",
     ANGRY: "😠",
     NEUTRAL: "😐",
-    EXCITED: "🤩",
     // 필요한 경우 더 추가 가능
   };
 
@@ -157,7 +156,7 @@ const Journal = () => {
                 <div className="journal-details">
                   <span className="journal-date"><strong>날짜:</strong> {new Date(journal.createdAt).toLocaleDateString()}</span>
                   <span className="journal-content"><strong>내용:</strong> {journal.content.length > 100 ? `${journal.content.substring(0, 100)}...` : journal.content}</span>
-                  <span className="journal-mood"><strong>기분:</strong> {moodEmojis[journal.mood] || moodEmojis[Mood.UNDEFINED]}</span>
+                  <span className="journal-mood"><strong>기분:</strong> {moodEmojis[journal.mood] || moodEmojis[Mood.HAPPY]}</span>
                   <span className="journal-progress"><strong>진행률:</strong> {journal.progress === 100 ? "달성 완료" : `${journal.progress}% 달성`}</span>
                 </div>
                 <div className="journal-actions">

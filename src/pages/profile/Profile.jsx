@@ -10,7 +10,6 @@ const Profile = () => {
     const [imageUrl, setImageUrl] = useState(null);
     const [userInfo, setUserInfo] = useState(null);
     const currentUser = useSelector((state) => state.user);
-    const dispatch = useDispatch();
 
     // 사용자 정보 및 프로필 이미지 불러오기
     useEffect(() => {
