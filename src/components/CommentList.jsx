@@ -107,7 +107,7 @@ const CommentList = ({ challengeId, currentUser, refresh }) => {
                                 )}
 
                                 {/* 로그인한 유저이며, 댓글작성자와 다를 경우 신고 가능 */}
-                                {currentUser && comment.username !== currentUser.username && (
+                                {comment.username !== currentUser.username && (
                                     <button
                                         className="report-button"
                                         onClick={() => handleReport(comment.id)}
