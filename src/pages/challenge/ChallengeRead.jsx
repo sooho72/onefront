@@ -161,8 +161,8 @@ const ChallengeRead = () => {
               </button>
               <div className="action-buttons">
                 <button
-                  className="btn btn-outline-primary"
-                  onClick={() => setShowEditModal(true)}
+                  className="btn btn-yellow"
+                onClick={() => setShowEditModal(true)}
                 >
                   수정하기
                 </button>

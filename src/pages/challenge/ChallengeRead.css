@@ -81,6 +81,17 @@
   margin-top: 20px;
 }
 
+.btn-yellow {
+  background-color: #FFFACD; /* 밝은 노란색 */
+  color: #000; /* 어두운 텍스트 */
+  border: none;
+}
+
+.btn-yellow:hover {
+  background-color: #FFD700; /* 호버 시 더 진한 노란색 */
+  color: #000;
+}
+
 /* 반응형 디자인 */
 @media (max-width: 768px) {
   .challenge-content {
