@@ -1,0 +1,116 @@
+/* src/components/Profile/Profile.css */
+
+.profile-container {
+    padding: 40px;
+    max-width: 900px;
+    margin: 0 auto;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.profile-container h1 {
+    text-align: center;
+    margin-bottom: 30px;
+    color: #333;
+}
+
+.alert {
+    margin-bottom: 20px;
+}
+
+.profile-card {
+    display: flex;
+    flex-direction: column;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    padding: 30px;
+}
+
+.profile-image-section {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 30px;
+}
+
+.profile-image {
+    width: 200px;
+    height: 200px;
+    object-fit: cover;
+    border-radius: 50%;
+    border: 2px solid #ddd;
+    margin-bottom: 20px;
+}
+
+.no-image {
+    width: 200px;
+    height: 200px;
+    background-color: #f0f0f0;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #888;
+    margin-bottom: 20px;
+}
+
+.upload-section {
+    width: 100%;
+    max-width: 300px;
+}
+
+.btn-upload {
+    width: 100%;
+    background-color: #17a2b8;
+    border: none;
+    color: white;
+    padding: 10px;
+    border-radius: 4px;
+    transition: background-color 0.3s ease;
+}
+
+.btn-upload:hover {
+    background-color: #138496;
+}
+
+.user-info-section {
+    margin-top: 20px;
+}
+
+.user-info-section h4 {
+    margin-bottom: 20px;
+    color: #555;
+}
+
+.table th {
+    background-color: #f2f2f2;
+    color: #333;
+    width: 150px;
+}
+
+.table td, .table th {
+    padding: 12px;
+    vertical-align: middle;
+}
+
+@media (min-width: 768px) {
+    .profile-card {
+        flex-direction: row;
+    }
+
+    .profile-image-section {
+        flex: 1;
+        align-items: center;
+    }
+
+    .user-info-section {
+        flex: 2;
+        padding-left: 40px;
+    }
+}
+
+@media (max-width: 767px) {
+    .upload-section .form-control {
+        margin-bottom: 10px;
+    }
+}

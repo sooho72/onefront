@@ -121,6 +121,13 @@
     margin: 20px 0;
 }
 
+.report-button {
+    background: none;
+    border: none;
+    color: #dc3545;
+    cursor: pointer;
+}
+
 @media (prefers-color-scheme: dark) {
     .comment-list-container {
         background-color: #2c2c2c;

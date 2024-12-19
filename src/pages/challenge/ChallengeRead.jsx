@@ -6,13 +6,16 @@ import challengeService from "../../services/challengeService";
 import Modal from "react-bootstrap/Modal"; // React-Bootstrap 모달
 import Button from "react-bootstrap/Button";
 import './ChallengeRead.css'; // 스타일 시트 추가
+import journalService from "../../services/journalService";
+
 
 const ChallengeRead = () => {
-  const { challengeId } = useParams(); // URL에서 challengeId 가져오기
-  const [challenge, setChallenge] = useState(null); // 초기값 null
+  const { challengeId } = useParams();
+  const [challenge, setChallenge] = useState(null);
+  const [journals, setJournals] = useState([]); // 저널 상태 추가
   const [errorMessage, setErrorMessage] = useState("");
   const [loading, setLoading] = useState(true);
-  const currentUser = useSelector((state) => state.user); // 현재 로그인된 사용자
+  const currentUser = useSelector((state) => state.user);
   const navigate = useNavigate();
 
   const [showEditModal, setShowEditModal] = useState(false);
@@ -25,7 +28,7 @@ const ChallengeRead = () => {
       return;
     }
 
-    // 특정 챌린지 가져오기
+    // 챌린지 데이터 가져오기
     challengeService
       .getChallengeById(challengeId)
       .then((response) => {
@@ -34,6 +37,16 @@ const ChallengeRead = () => {
       .catch((err) => {
         setErrorMessage("챌린지 정보를 불러오는 중 에러가 발생했습니다.");
         console.error(err);
+      });
+
+    // 저널 데이터 가져오기
+    journalService
+      .getJournalsByChallengeId(challengeId)
+      .then((response) => {
+        setJournals(response); // 저널 상태 업데이트
+      })
+      .catch((err) => {
+        console.error(`저널 데이터를 가져오는 중 오류 발생: ${err}`);
       })
       .finally(() => {
         setLoading(false);
@@ -52,33 +65,29 @@ const ChallengeRead = () => {
     return <p>챌린지 정보를 찾을 수 없습니다.</p>;
   }
 
-  // 현재 로그인 사용자가 챌린지 작성자인지 확인
-  const isOwner = currentUser && challenge && currentUser.username === challenge.username;
+  const isOwner =
+    currentUser && challenge && currentUser.username === challenge.username;
 
   const confirmEdit = () => {
-    // 현재 사용자가 작성자인 경우에만 동작
     if (!isOwner) {
       alert("수정 권한이 없습니다.");
       return;
     }
-
     setShowEditModal(false);
-    navigate(`/challenge/edit/${challengeId}`); // 수정 페이지로 이동
+    navigate(`/challenge/edit/${challengeId}`);
   };
 
   const confirmDelete = () => {
-    // 현재 사용자가 작성자인 경우에만 동작
     if (!isOwner) {
       alert("삭제 권한이 없습니다.");
       return;
     }
-
     setShowDeleteModal(false);
     challengeService
       .deleteChallenge(challengeId)
       .then(() => {
         alert("챌린지가 삭제되었습니다.");
-        navigate("/challenge"); // 목록 페이지로 이동
+        navigate("/challenge");
       })
       .catch((err) => {
         alert("삭제 중 에러가 발생했습니다.");
@@ -94,6 +103,7 @@ const ChallengeRead = () => {
             <h3>{challenge.title}</h3>
           </div>
           <div className="card-body">
+            {/* 챌린지 정보 테이블 */}
             <table className="table table-bordered">
               <tbody>
                 <tr>
@@ -122,20 +132,33 @@ const ChallengeRead = () => {
                 </tr>
               </tbody>
             </table>
+
+            {/* 저널 목록 */}
+            <h4>저널 목록</h4>
+            {journals.length > 0 ? (
+              <ul className="list-group">
+                {journals.map((journal) => (
+                  <li key={journal.id} className="list-group-item">
+                    <strong>{new Date(journal.createdAt).toLocaleDateString()}</strong>: {journal.content}
+                  </li>
+                ))}
+              </ul>
+            ) : (
+              <p>등록된 저널이 없습니다.</p>
+            )}
           </div>
         </div>
+
         {/* 작성자만 버튼 표시 */}
-        {currentUser && challenge && isOwner && (
+        {isOwner && (
           <div className="footer-section">
             <div className="owner-buttons">
-              {/* "기록하기" 버튼을 왼쪽에 배치 */}
               <button
                 className="btn btn-outline-warning record-button"
                 onClick={() => navigate(`/journal/${challenge.id}`)}
               >
                 기록하기
               </button>
-              {/* "수정하기" 및 "삭제하기" 버튼을 오른쪽에 배치 */}
               <div className="action-buttons">
                 <button
                   className="btn btn-outline-primary"

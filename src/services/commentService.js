@@ -7,7 +7,10 @@ import { authHeader } from "./base.service"; // authHeader 가져오기
 // API_URL을 '/api/comments'로 설정
 const API_URL = `${BASE_API_URL}/api/comments`;
 
+const API_URL_REPORT =`${BASE_API_URL}/api/reports`;
+
 class CommentService {
+    
     /**
      * 특정 챌린지에 속한 모든 댓글을 가져옵니다.
      * @param {number} challengeId - 댓글을 가져올 챌린지의 ID
@@ -48,6 +51,7 @@ class CommentService {
             headers: authHeader()
         });
     }
+
 }
 
 // 서비스의 인스턴스를 생성하여 export
