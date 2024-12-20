@@ -132,17 +132,30 @@ const Challenge = () => {
 
                         {/* 진행률 바 및 달성률 */}
                         <div className="challenge-progress">
-                            <div className="progress-bar">
-                                <div
-                                    className={`progress-bar-fill ${challenge.progress === 100 ? 'completed-fill' : ''}`}
-                                    style={{ width: `${challenge.progress || 0}%` }} // 기본값 0% 처리
-                                ></div>
-                            </div>
-                            <div className="progress-text">
-                                {challenge.progress === 100 ? "달성 완료" : (challenge.progress !== undefined ? `${challenge.progress}% 달성` : "달성률 없음")}
-                            </div>
+                <div className="progress-bar">
+                        <div
+                 className={`progress-bar-fill ${challenge.progress === 100 ? 'completed' : ''}`}
+                style={{
+        width: `${challenge.progress || 0}%`,
+        backgroundColor: challenge.progress >= 100 ? '#ff9f43' : '#28a745', // 주황색
+                     }}
+                    ></div>
+                 </div>
+            <div
+                    className={`progress-text ${challenge.progress === 100 ? 'completed' : ''}`}
+                    style={{
+                    color: challenge.progress === 100 ? '#ff9f43' : '#333', // 텍스트 색상
+                    }}
+                >
+                    {challenge.progress === 100 ? (
+                    <>
+                        <span className="icon">🏆</span> 달성 완료
+                        </>
+                        ) : (
+                        challenge.progress !== undefined ? `${challenge.progress}% 달성` : "달성률 없음"
+                        )}
                         </div>
-
+                        </div>
                         {/* 챌린지 추가 버튼 */}
                         <div className="challenge-actions">
                             {isUserChallenge(challenge) && (

@@ -84,7 +84,14 @@
   position: absolute;
   top: 0;
   left: 0;
-  transition: width 0.5s ease-in-out;
+  transition: width 0.5s ease-in-out, background-color 0.5s;
+}
+
+/* 달성 완료 시 부드러운 색상 변화 */
+.progress-bar-fill.completed {
+  background-color: #4a90e2; 
+  background: linear-gradient(90deg, #4a90e2, #6cc1ff); /* 파란색 그라데이션 */
+  box-shadow: 0 0 10px rgba(74, 144, 226, 0.5); /* 부드러운 광택 효과 */
 }
 
 .progress-text {
@@ -92,6 +99,20 @@
   color: #333;
 }
 
+/* 완료 상태 텍스트 스타일 */
+.progress-text.completed {
+  font-size: 16px;
+  font-weight: bold;
+  color: #4a90e2;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+/* 아이콘 크기 */
+.progress-text.completed .icon {
+  font-size: 20px;
+}
 /* D-Day 표시 */
 .challenge-days {
   font-size: 18px;

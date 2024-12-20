@@ -134,12 +134,12 @@ const ChallengeRead = () => {
             </table>
 
             {/* 저널 목록 */}
-            <h4>저널 목록</h4>
+            <h4>기록 목록</h4>
             {journals.length > 0 ? (
               <ul className="list-group">
                 {journals.map((journal) => (
                   <li key={journal.id} className="list-group-item">
-                    <strong>{new Date(journal.createdAt).toLocaleDateString()}</strong>: {journal.content}
+                    <strong>{new Date(journal.createdAt).toLocaleDateString()}</strong> : {journal.content}
                   </li>
                 ))}
               </ul>
