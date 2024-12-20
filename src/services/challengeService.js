@@ -89,6 +89,35 @@ class ChallengeService {
       throw error;
     }
   }
+
+  async getInProgressChallenges(username) {
+    try {
+      const response = await axios.get(API_URL);
+      // 진행 중인 챌린지 필터링 (isCompleted = false)
+      const inProgressChallenges = response.data.filter(
+        (challenge) => challenge.username === username && !challenge.isCompleted
+      );
+      return inProgressChallenges;
+    } catch (error) {
+      console.error(`Error fetching in-progress challenges for user ${username}:`, error);
+      throw error;
+    }
+  }
+
+  async getCompletedChallenges(username) {
+    try {
+      const response = await axios.get(API_URL);
+      // 달성된 챌린지 필터링 (isCompleted = true)
+      const completedChallenges = response.data.filter(
+        (challenge) => challenge.username === username && challenge.isCompleted
+      );
+      return completedChallenges;
+    } catch (error) {
+      console.error(`Error fetching completed challenges for user ${username}:`, error);
+      throw error;
+    }
+  }
+
 }
 
 const challengeService = new ChallengeService();

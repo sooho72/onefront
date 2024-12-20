@@ -1,42 +1,56 @@
 import React, { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import userService from "../../services/user.service";
+import challengeService from "../../services/challengeService";
 import '../profile/Profile.css'
-import Role from "../../models/Role"; 
-import { clearCurrentUser } from "../../store/actions/user";
+
 
 const Profile = () => {
     const [errorMessage, setErrorMessage] = useState("");
     const [successMessage, setSuccessMessage] = useState("");
+    const [inProgressChallenges, setInProgressChallenges] = useState([]);
+    const [completedChallenges, setCompletedChallenges] = useState([]);
     const [selectedFile, setSelectedFile] = useState(null);
     const [imageUrl, setImageUrl] = useState(null);
     const [userInfo, setUserInfo] = useState(null);
     const currentUser = useSelector((state) => state.user);
-    const dispatch = useDispatch();
 
-    // 사용자 정보 및 프로필 이미지 불러오기
-    useEffect(() => {
-        // 사용자 정보 불러오기
-        userService.getUserInfo(currentUser.username)
-            .then((response) => {
-                setUserInfo(response.data);
-            })
-            .catch((error) => {
-                console.error("사용자 정보 불러오기 오류:", error);
-                setErrorMessage("사용자 정보를 불러오는 중 오류가 발생했습니다.");
-            });
 
-        // 프로필 이미지 불러오기
-        userService.getProfileImage(currentUser.username)
-            .then((response) => {
-                const url = URL.createObjectURL(response.data);
-                setImageUrl(url);
-            })
-            .catch((error) => {
-                console.error("프로필 이미지 불러오기 오류:", error);
-                setImageUrl(null);
-            });
-    }, [currentUser.username]);
+   // 사용자 정보 불러오기
+useEffect(() => {
+    userService.getUserInfo(currentUser.username)
+        .then((response) => {
+            setUserInfo(response.data);
+        })
+        .catch((error) => {
+            console.error("사용자 정보 불러오기 오류:", error);
+            setErrorMessage("사용자 정보를 불러오는 중 오류가 발생했습니다.");
+        });
+}, [currentUser.username]);
+
+// 진행 중인 챌린지 및 달성된 챌린지 불러오기
+useEffect(() => {
+    challengeService.getInProgressChallenges(currentUser.username)
+        .then(setInProgressChallenges)
+        .catch((error) => console.error("Error fetching in-progress challenges:", error));
+
+    challengeService.getCompletedChallenges(currentUser.username)
+        .then(setCompletedChallenges)
+        .catch((error) => console.error("Error fetching completed challenges:", error));
+}, [currentUser.username]);
+
+// 프로필 이미지 불러오기
+useEffect(() => {
+    userService.getProfileImage(currentUser.username)
+        .then((response) => {
+            const url = URL.createObjectURL(response.data);
+            setImageUrl(url);
+        })
+        .catch((error) => {
+            console.error("프로필 이미지 불러오기 오류:", error);
+            setImageUrl(null);
+        });
+}, [currentUser.username]);
 
     // 파일 선택 핸들러
     const handleFileChange = (event) => {
@@ -145,6 +159,42 @@ const Profile = () => {
                                 </tr>
                             </tbody>
                         </table>
+
+                          {/* 진행 중인 챌린지 섹션 */}
+        <div className="challenge-section">
+            <h4>진행 중인 챌린지</h4>
+            {inProgressChallenges.length > 0 ? (
+                <ul>
+                    {inProgressChallenges.map((challenge) => (
+                        <li key={challenge.id}>
+                            <strong>{challenge.title}</strong> - {challenge.progress}%
+                        </li>
+                    ))}
+                </ul>
+            ) : (
+                <p>진행 중인 챌린지가 없습니다.</p>
+            )}
+        </div>
+
+        {/* 달성된 챌린지 섹션 */}
+        <div className="challenge-section">
+            <h4>달성된 챌린지</h4>
+            {completedChallenges.length > 0 ? (
+                <ul>
+                    {completedChallenges.map((challenge) => (
+                        <li key={challenge.id}>
+                            <strong>{challenge.title}</strong> - 달성 완료!
+                        </li>
+                    ))}
+                </ul>
+            ) : (
+                <p>달성된 챌린지가 없습니다.</p>
+            )}
+        </div>
+    </div>
+)}
+
+                        
                         {/* 권한 변경 버튼 (선택 사항) */}
                         {/* 
                         <button onClick={changeRole} className="btn btn-primary">
@@ -152,9 +202,7 @@ const Profile = () => {
                         </button> 
                         */}
                     </div>
-                )}
             </div>
-        </div>
     );
 };
 

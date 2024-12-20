@@ -113,4 +113,26 @@
     .upload-section .form-control {
         margin-bottom: 10px;
     }
+
+    .challenge-section {
+        margin-top: 20px;
+    }
+    
+    .challenge-section h4 {
+        margin-bottom: 10px;
+    }
+    
+    .challenge-section ul {
+        list-style-type: none;
+        padding: 0;
+    }
+    
+    .challenge-section ul li {
+        padding: 5px 0;
+        border-bottom: 1px solid #ddd;
+    }
+    
+    .challenge-section ul li:last-child {
+        border-bottom: none;
+    }
 }
