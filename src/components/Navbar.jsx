@@ -46,6 +46,11 @@ const Navbar = () => {
                         챌린지 게시판
                     </NavLink>
                 </li>
+                <li className="nav-item">
+                    <NavLink to="/famous" className="nav-link">
+                        오늘의 명언카드
+                    </NavLink>
+                </li>
             </div>
             {!currentUser ? (
                 <div className="navbar-nav ms-auto">

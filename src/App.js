@@ -19,6 +19,7 @@ import ChallengeRegister from './pages/register/ChallengeRegister.jsx';
 import ChallengeRead from './pages/challenge/ChallengeRead.jsx';
 import ChallengeMe from './pages/challenge/ChallengeMe.jsx';
 import ChallengeEdit from './pages/challenge/ChallengeEdit.jsx';
+import Famous from './pages/famous/Famous.jsx';
 
 
 function App() {
@@ -36,6 +37,7 @@ function App() {
           <Route path='/challengeread/:challengeId'element={<ChallengeRead/>}></Route>
           <Route path='/journal/:challengeId' element={<Journal/>}></Route>
           <Route path='/challengeregister' element={<ChallengeRegister/>}></Route>
+          <Route path='/famous' element={<Famous/>}> </Route>
           <Route path='/login' element={<Login />}></Route>
           <Route path='/register' element={<Register />}></Route>
           <Route path='/admin' element={
