@@ -48,3 +48,14 @@
   padding: 10px 15px; /* 패딩 확대 */
   border-radius: 10px;
 }
+.famous-instruction {
+  position: fixed; /* 혹은 fixed 등으로 원하는 위치에 배치 */
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 9999; /* 카드보다 큰 숫자로 지정 */
+  background: rgba(255, 255, 255, 0.8); /* 반투명 배경 등으로 가독성 향상 */
+  padding: 1rem;
+  border-radius: 8px;
+  font-size: 1.1rem;
+  text-align: center;
+}
