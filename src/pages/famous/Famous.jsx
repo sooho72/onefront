@@ -110,6 +110,7 @@ function Famous() {
       {/* 처음 안내문 */}
       {showInstruction && (
         <div className="famous-instruction">
+          <p>하루마다 랜덤으로 5개 명언카드가 보여집니다.</p>
           카드를 왼쪽이나 오른쪽으로 드래그하여 명언을 확인해보세요!
         </div>
       )}
@@ -117,7 +118,7 @@ function Famous() {
       {/* 모든 카드 소진 시 메시지 */}
       {allCardsGone && (
         <div className="famous-all-gone">
-          모든 카드를 확인하셨습니다! 잠시 후 다시 볼 수 있어요.
+          모든 카드드를 확인하셨습니다! 잠시 후 다시 볼 수 있어요.
         </div>
       )}
 
